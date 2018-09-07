@@ -1,0 +1,6 @@
+node_modules/
+dist/public/
+dist/server/
+
+# include the index page
+!dist/public/index.html
