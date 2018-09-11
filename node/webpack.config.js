@@ -4,10 +4,14 @@ const nodeExternals = require('webpack-node-externals');
 var config = [
     //web configuration
     {
-        entry: ['./src/web/index.tsx'],
+        entry: ['./src/web/boot-client.tsx'],
         output: {
-            path: path.resolve(__dirname, './dist'),
-            filename: 'public/bundle.js',
+            path: path.resolve(__dirname, './public'),
+            filename: 'build/bundle.js',
+        },
+        resolve: {
+            //automatically infer '.ts' and '.tsx' when importing files
+            extensions: ['.js', '.jsx', '.ts', '.tsx']
         },
         module: {
             rules: [
@@ -18,10 +22,7 @@ var config = [
                 {
                     test:/\.tsx?$/,
                     include: path.resolve(__dirname, "./src/web/"),
-                    loader: "awesome-typescript-loader",
-                    options: {
-                        configFile: path.resolve(__dirname, "./tsconfig.web.json")
-                    }
+                    loader: "awesome-typescript-loader"
                 },
                 {
                     test: /\.(png|jpg|jpeg|gif|svg|ttf|otf)$/,
@@ -29,7 +30,6 @@ var config = [
                 },
             ]
         },
-        mode: 'development',
         devtool: "source-map"
     },
 
@@ -39,22 +39,22 @@ var config = [
         target: 'node',
         externals: [nodeExternals()],
         output: {
-            path: path.resolve(__dirname, './dist'),
-            filename: 'server/[name].js',
+            path: path.resolve(__dirname, './build'),
+            filename: '[name].js',
+        },
+        resolve: {
+            //automatically infer '.ts' and '.tsx' when importing files
+            extensions: ['.js', '.jsx', '.ts', '.tsx']
         },
         module: {
             rules: [
                 {
                     test:/\.tsx?$/,
                     include: path.resolve(__dirname, "./src/server/"),
-                    loader: "awesome-typescript-loader",
-                    options: {
-                        configFile: path.resolve(__dirname, "./tsconfig.server.json")
-                    }
+                    loader: "awesome-typescript-loader"
                 }
             ]
         },
-        mode: 'development',
 
         //by default, webpack will set these to '/', so override that behavior on the server
         node: {
@@ -62,5 +62,5 @@ var config = [
             __filename: false
         }
     }
-]
+];
 module.exports = config;

@@ -17,7 +17,7 @@ class App {
         this.configureApi();
 
         //static files
-        this.express.use(express.static(path.join(__dirname, '/../../dist/public')));
+        this.express.use(express.static(path.join(__dirname, '/../public')));
 
         //temporary static home page
         this.express.get("/", (req, res, next) => {

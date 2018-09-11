@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    //use strict type checking
+    "strict": true,
+
+    "jsx": "react",
+
+    //skip type checking .d.ts files, particularly from third party libraries
+    "skipLibCheck": true
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

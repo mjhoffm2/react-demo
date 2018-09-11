@@ -1,5 +1,7 @@
 node_modules/
+.idea/
+.vscode/
 
-#ignore files in the dist folder except for .html files
-dist/*
-!dist/public/*.html
+#ignore files in the build folders
+build/
+public/build/
