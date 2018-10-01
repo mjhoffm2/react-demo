@@ -6,7 +6,12 @@
     "jsx": "react",
 
     //skip type checking .d.ts files, particularly from third party libraries
-    "skipLibCheck": true
+    "skipLibCheck": true,
+
+    //Tell the TypeScript compiler what libraries we expect to exist
+    //In this case, we expect the user's browser to have ES6 support (haha) and a dom
+    //The idea is that we will polyfill anything es6 related
+    "lib": ["es6", "dom"]
   },
   "exclude": [
     "node_modules"
