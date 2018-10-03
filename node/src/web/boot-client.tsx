@@ -1,15 +1,18 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom'
-import * as defs from './definitions/definitions';
-import { AppRoot } from "./components/AppRoot";
 import createBrowserHistory from "history/createBrowserHistory";
 import { rootReducer } from "./reducers/reducer";
 import { applyMiddleware, compose, createStore } from "redux";
 import { Provider } from 'react-redux';
 import {ConnectedRouter, connectRouter, routerMiddleware} from "connected-react-router";
+import {Routes} from "./routes";
 
 //polyfills for IE
-require('./util/polyfills');
+import './util/polyfills';
+import 'es6-promise/auto';
+
+//styles
+import 'bootstrap/dist/css/bootstrap.css'
 
 const message: string = "this is the client";
 console.log(message);
@@ -29,7 +32,7 @@ const store = createStore(
 ReactDOM.render(
     <Provider store={store}>
         <ConnectedRouter history={history}>
-            <AppRoot/>
+            <Routes/>
         </ConnectedRouter>
     </Provider>,
     document.getElementById('root')

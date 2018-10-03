@@ -1,17 +1,40 @@
 {
   "compilerOptions": {
-    //use strict type checking
+    //Use strict type checking
+    //This makes it so 'null' and 'undefined' are considered explicit values
+    //It shows type errors where types could not be inferred, among other things
     "strict": true,
 
+    //Transforms react JSX syntax into React.createElement() calls
     "jsx": "react",
 
     //skip type checking .d.ts files, particularly from third party libraries
-    "skipLibCheck": true,
+    //this can massively speed up compilation time
+    //"skipLibCheck": true,
 
     //Tell the TypeScript compiler what libraries we expect to exist
-    //In this case, we expect the user's browser to have ES6 support (haha) and a dom
-    //The idea is that we will polyfill anything es6 related
-    "lib": ["es6", "dom"]
+    //In this case, we expect the user's browser to have ES5 support and a dom
+    //We provide a polyfill for es2015 promises, and other polyfills provide their own definitions
+    //Another common approach is to simply declare that the user's browser has es6 support, and then polyfill anything necessary
+    "lib": ["es5", "dom", "es2015.promise"],
+    //In this alternate case, we expect the user's browser to have ES6 support (haha) and a dom
+    //The idea is that we will polyfill anything additional that we use from es6
+    //"lib": ["es6", "dom"]
+
+    //By declaring the target to be ES6, this sets the compilation target for the typescript compiler.
+    //We don't need this to compile all the way down to ES3/5, webpack will handle that.
+    //In addition to setting the compilation target, this also causes ES6 modules to be used instead of CommonJS
+    //This is important since it enables webpack to do tree shaking optimizations (dead code removal)
+    "target": "es6",
+
+    //It is important to use ES6 modules instead of the default CommonJS
+    //It that enables webpack to do tree shaking optimizations (dead code removal)
+    //This is only necessary when targeting es3/5 with the typescript compiler, but we are targeting es6 so this is default
+    //"module": "es6",
+
+    //When setting "module": "es6", the typescript compiler defaults to the "classic" module resolution strategy
+    //It is important that we use the "node" module resolution strategy instead
+    "moduleResolution": "node"
   },
   "exclude": [
     "node_modules"

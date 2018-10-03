@@ -17,7 +17,7 @@ export interface User {
 
 export interface Channel {
     channelId: number;
-    ownerId: number;
+    ownerId: number | null;
     displayName: string;
     isPublic: boolean;
     canAnyoneInvite: boolean;

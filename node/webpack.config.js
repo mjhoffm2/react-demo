@@ -25,9 +25,9 @@ var config = [
                     loader: "awesome-typescript-loader"
                 },
                 {
-                    test: /\.(png|jpg|jpeg|gif|svg|ttf|otf)$/,
+                    test: /\.(png|jpg|jpeg|gif|svg|ttf|otf|woff|woff2|eot)$/,
                     loader: 'url-loader?limit=25000'
-                },
+                }
             ]
         },
         devtool: "source-map"

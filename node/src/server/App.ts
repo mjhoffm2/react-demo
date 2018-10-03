@@ -8,13 +8,15 @@ export class App {
     constructor() {
         this.express = express();
         this.configureMiddleWare();
+
+        //configure endpoints that are handled by api calls
         this.configureApi();
 
         //static files
         this.express.use(express.static(path.join(__dirname, '/../public')));
 
-        //temporary static home page
-        this.express.get("/", (req, res, next) => {
+        //serve static home page for all remaining requests
+        this.express.get("*", (req, res, next) => {
             let filePath: string = path.resolve(__dirname, '../public/main.html');
             res.sendFile(filePath);
         });
