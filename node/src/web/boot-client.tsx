@@ -13,6 +13,7 @@ import 'es6-promise/auto';
 
 //styles
 import 'bootstrap/dist/css/bootstrap.css'
+import {Router} from "react-router";
 
 const message: string = "this is the client";
 console.log(message);
@@ -20,20 +21,32 @@ console.log(message);
 const history = createBrowserHistory();
 
 //configure store based on https://github.com/supasate/connected-react-router
-const store = createStore(
-    connectRouter(history)(rootReducer),
-    compose(
-        applyMiddleware(
-            routerMiddleware(history)
-        )
-    )
-);
+//const store = createStore(
+//    connectRouter(history)(rootReducer),
+//    compose(
+//        applyMiddleware(
+//            routerMiddleware(history)
+//        ),
+//        (window as any).devToolsExtension ? (window as any).devToolsExtension() : (f: any) => f
+//    )
+//);
+
+const store = createStore(rootReducer);
+
+//ReactDOM.render(
+//    <Provider store={store}>
+//        <ConnectedRouter history={history}>
+//            <Routes/>
+//        </ConnectedRouter>
+//    </Provider>,
+//    document.getElementById('root')
+//);
 
 ReactDOM.render(
     <Provider store={store}>
-        <ConnectedRouter history={history}>
+        <Router history={history}>
             <Routes/>
-        </ConnectedRouter>
+        </Router>
     </Provider>,
     document.getElementById('root')
 );

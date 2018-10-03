@@ -27,11 +27,6 @@
     //This is important since it enables webpack to do tree shaking optimizations (dead code removal)
     "target": "es6",
 
-    //It is important to use ES6 modules instead of the default CommonJS
-    //It that enables webpack to do tree shaking optimizations (dead code removal)
-    //This is only necessary when targeting es3/5 with the typescript compiler, but we are targeting es6 so this is default
-    //"module": "es6",
-
     //When setting "module": "es6", the typescript compiler defaults to the "classic" module resolution strategy
     //It is important that we use the "node" module resolution strategy instead
     "moduleResolution": "node"
