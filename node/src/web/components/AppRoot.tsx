@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { Row, Col, Grid, Panel } from "react-bootstrap";
+import {ChannelList} from "./Channels";
 
 export class AppRoot extends React.Component<{}> {
     constructor(p: {}) {
@@ -9,22 +10,10 @@ export class AppRoot extends React.Component<{}> {
 
     render() {
         return (
-            <Grid>
-                <Row>
-                    <Col xs={6}>
-                        <Panel>
-                            <Panel.Heading>App Root</Panel.Heading>
-                            <Panel.Body>Hello World</Panel.Body>
-                            <Panel.Footer>
-                                <Link to='/channels'>Go to channel list</Link>
-                            </Panel.Footer>
-                        </Panel>
-                    </Col>
-                    <Col xs={6}>
-                        Content on right half of screen
-                    </Col>
-                </Row>
-            </Grid>
+            <div>
+                <h2>Hello World</h2>
+                <ChannelList />
+            </div>
         );
     }
 }

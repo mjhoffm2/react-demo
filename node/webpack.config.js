@@ -23,10 +23,6 @@ var config = [
                     test:/\.tsx?$/,
                     include: path.resolve(__dirname, "./src/web/"),
                     loader: "awesome-typescript-loader"
-                },
-                {
-                    test: /\.(png|jpg|jpeg|gif|svg|ttf|otf|woff|woff2|eot)$/,
-                    loader: 'url-loader?limit=25000'
                 }
             ]
         },

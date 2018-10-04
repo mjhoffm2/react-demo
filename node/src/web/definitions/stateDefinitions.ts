@@ -1,9 +1,6 @@
-import { RouterState } from 'connected-react-router';
-
 export interface State {
     users: User[] | null;
     channels: Channel[] | null;
-    router: RouterState;
 }
 
 export interface User {
