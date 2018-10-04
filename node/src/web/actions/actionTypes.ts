@@ -1,11 +1,13 @@
 import * as defs from '../definitions/definitions';
+import {RouterAction} from "connected-react-router";
 
 export enum ActionTypes {
     LOAD_USERS = "LOAD_USERS",
     LOAD_CHANNELS = "LOAD_CHANNELS"
 }
 
-export type Action = loadUsersAction | loadChannelsAction;
+export type ReducerAction = loadUsersAction | loadChannelsAction;
+export type Action = RouterAction | ReducerAction;
 
 export interface loadUsersAction {
     type: ActionTypes.LOAD_USERS;

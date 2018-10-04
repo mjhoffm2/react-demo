@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as defs from '../definitions/definitions';
-import { RouteComponentProps } from "react-router";
-import { Dispatch } from "redux";
-import { Action } from "../actions/actionTypes";
+import {RouteComponentProps} from "react-router";
+import {Dispatch} from "redux";
+import {Action} from "../actions/actionTypes";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import {Row, Col, Button, Panel, Glyphicon} from "react-bootstrap";

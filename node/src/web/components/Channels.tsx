@@ -1,11 +1,11 @@
 import * as React from 'react';
 import * as defs from '../definitions/definitions';
-import { Route, RouteComponentProps, Switch } from "react-router";
-import { Dispatch } from "redux";
-import { Action, ActionTypes } from "../actions/actionTypes";
-import { connect } from "react-redux";
-import { ViewChannel } from "./ViewChannel";
-import { Link } from "react-router-dom";
+import {Route, RouteComponentProps, Switch} from "react-router";
+import {Dispatch} from "redux";
+import {Action, ActionTypes} from "../actions/actionTypes";
+import {connect} from "react-redux";
+import {ViewChannel} from "./ViewChannel";
+import {Link} from "react-router-dom";
 import {Row, Col, Grid, Panel, ListGroup, ListGroupItem, Alert} from "react-bootstrap";
 
 interface urlParams {

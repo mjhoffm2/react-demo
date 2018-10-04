@@ -1,8 +1,8 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
-import { Row, Col, Grid, Panel } from "react-bootstrap";
+import {Link} from "react-router-dom";
+import {Row, Col, Grid, Panel} from "react-bootstrap";
 
-export class AppRoot extends React.Component<{}> {
+export class Home extends React.Component<{}> {
     constructor(p: {}) {
         super(p);
     }
