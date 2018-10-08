@@ -13,13 +13,9 @@
     //"skipLibCheck": true,
 
     //Tell the TypeScript compiler what libraries we expect to exist
-    //In this case, we expect the user's browser to have ES5 support and a dom
-    //We provide a polyfill for es2015 promises, and other polyfills provide their own definitions
-    //Another common approach is to simply declare that the user's browser has es6 support, and then polyfill anything necessary
-    "lib": ["es5", "dom", "es2015.promise"],
-    //In this alternate case, we expect the user's browser to have ES6 support (haha) and a dom
-    //The idea is that we will polyfill anything additional that we use from es6
-    //"lib": ["es6", "dom"]
+    //In this case, we expect the user's browser to have ES6 support (haha) and a dom
+    //The idea is that we will polyfill anything additional that we use from es6 in the client code
+    "lib": ["es6", "dom"],
 
     //This causes ES6 modules to be used instead of CommonJS
     //This is important since it enables webpack to do tree shaking optimizations (dead code removal)

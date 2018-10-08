@@ -1,12 +1,20 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
+const webpack = require('webpack');
 
 var config = [
     //web configuration
     {
-        entry: ['./src/web/boot-client.tsx'],
+        name: 'web',
+        entry: [
+            //we configure the hot reloader as a separate entry point to the application
+            'webpack-hot-middleware/client',
+
+            './src/web/boot-client.tsx'
+        ],
         output: {
             path: path.resolve(__dirname, './public/build'),
+            publicPath: '/build',
             filename: 'bundle.js',
         },
         resolve: {
@@ -30,11 +38,18 @@ var config = [
                 }
             ]
         },
-        devtool: "source-map"
+
+        //see https://webpack.js.org/configuration/devtool/ for options
+        devtool: "cheap-module-eval-source-map",
+
+        plugins: [
+            new webpack.HotModuleReplacementPlugin()
+        ]
     },
 
     //server configuration
     {
+        name: 'server',
         entry: ['./src/server/main.ts'],
         target: 'node',
         externals: [nodeExternals()],
@@ -58,8 +73,10 @@ var config = [
 
         //by default, webpack will set these to '/', so override that behavior on the server
         node: {
-            __dirname: false,
-            __filename: false
+            //setting these to 'true' causes them to keep the same values relative to the source code
+            //setting these to 'false' would cause them to have values relative to the output code
+            __dirname: true,
+            __filename: true
         }
     }
 ];
