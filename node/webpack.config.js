@@ -2,11 +2,13 @@ const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const webpack = require('webpack');
 
-var config = [
+var config = (env, options) => [
     //web configuration
     {
         name: 'web',
-        entry: [
+        entry: options.mode === 'production' ? [
+            './src/web/boot-client.tsx'
+        ] : [
             //we configure the hot reloader as a separate entry point to the application
             'webpack-hot-middleware/client',
 
@@ -25,7 +27,9 @@ var config = [
             rules: [
                 {
                     test:/\.css$/,
-                    use:['style-loader','css-loader'],
+                    use: options.mode === 'production' ?
+                        ['file-loader', 'css-loader?minimize'] :
+                        ['style-loader', 'css-loader'],
                 },
                 {
                     test:/\.tsx?$/,
@@ -40,9 +44,9 @@ var config = [
         },
 
         //see https://webpack.js.org/configuration/devtool/ for options
-        devtool: "cheap-module-eval-source-map",
+        devtool: options.mode === 'production' ? "source-map" : "cheap-module-eval-source-map",
 
-        plugins: [
+        plugins: options.mode === 'production' ? [] : [
             new webpack.HotModuleReplacementPlugin()
         ]
     },

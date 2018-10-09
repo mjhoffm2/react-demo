@@ -5,8 +5,8 @@ import * as devMiddleware from 'webpack-dev-middleware';
 import * as hotMiddleware from 'webpack-hot-middleware';
 import {Configuration} from "webpack";
 
-const configs: Configuration[] = require('../../webpack.config');
-const config = configs.find(config => config.name === "web");
+const configs: (env: any, options: any) => Configuration[] = require('../../webpack.config');
+const config = configs({}, {mode: "development"}).find(config => config.name === "web");
 
 export class App {
     // ref to Express instance
@@ -39,6 +39,7 @@ export class App {
                 ...config,
                 mode: "development",
             });
+            //const compiler = webpack(configs);
 
             //enable hot module replacement part 1
             this.express.use(devMiddleware(compiler, {
