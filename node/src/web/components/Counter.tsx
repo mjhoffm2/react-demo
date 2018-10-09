@@ -1,6 +1,8 @@
 import * as React from "react";
 import {Row, Col, Button} from "react-bootstrap";
 
+import '../styles/Counter.css';
+
 interface params {}
 
 interface localState {
@@ -20,7 +22,7 @@ export class Counter extends React.Component<params, localState> {
         return (
             <Row>
                 <Col xs={6}>
-                    <div>Counter: {this.state.count}</div>
+                    <div className={'my-counter'}>Counter: {this.state.count}</div>
                 </Col>
                 <Col xs={6}>
                     <Button
