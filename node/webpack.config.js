@@ -14,7 +14,7 @@ var config = [
         ],
         output: {
             path: path.resolve(__dirname, './public/build'),
-            publicPath: '/build',
+            publicPath: '/build/',
             filename: 'bundle.js',
         },
         resolve: {
