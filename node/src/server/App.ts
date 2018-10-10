@@ -25,7 +25,18 @@ export class App {
 
         //serve static home page for all remaining requests
         this.express.get("*", (req, res, next) => {
-            let filePath: string = path.resolve(__dirname, '../../public/main.html');
+            if(req.path.lastIndexOf('.') > req.path.lastIndexOf('/')) {
+                //if this request looks like a static file, ignore it
+                return next();
+            }
+
+            let filePath: string;
+
+            if(process.env.NODE_ENV === 'development') {
+                filePath = path.resolve(__dirname, '../devmain.html');
+            } else {
+                filePath = path.resolve(__dirname, '../../public/build/main.html');
+            }
             res.sendFile(filePath);
         });
     }
