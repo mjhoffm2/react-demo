@@ -5,6 +5,8 @@ import * as devMiddleware from 'webpack-dev-middleware';
 import * as hotMiddleware from 'webpack-hot-middleware';
 import {Configuration} from "webpack";
 
+import * as compression from 'compression';
+
 const configs: (env: any, options: any) => Configuration[] = require('../../webpack.config');
 const config = configs({}, {mode: "development"}).find(config => config.name === "web");
 
@@ -14,6 +16,8 @@ export class App {
     //Run configuration methods on the Express instance.
     constructor() {
         this.express = express();
+
+        this.express.use(compression());
 
         this.configureMiddleWare();
 
