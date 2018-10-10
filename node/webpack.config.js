@@ -1,6 +1,8 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var config = (env, options) => [
     //web configuration
@@ -16,7 +18,7 @@ var config = (env, options) => [
         ],
         output: {
             path: path.resolve(__dirname, './public/build'),
-            publicPath: '/build',
+            publicPath: '/build/',
             filename: 'bundle.js',
         },
         resolve: {
@@ -28,7 +30,7 @@ var config = (env, options) => [
                 {
                     test:/\.css$/,
                     use: options.mode === 'production' ?
-                        ['file-loader', 'css-loader?minimize'] :
+                        [MiniCssExtractPlugin.loader, 'css-loader'] :
                         ['style-loader', 'css-loader'],
                 },
                 {
@@ -38,7 +40,7 @@ var config = (env, options) => [
                 },
                 {
                     test: /\.(png|jpg|jpeg|gif|svg|ttf|otf|woff|woff2|eot)$/,
-                    loader: 'url-loader?limit=25000'
+                    loader: 'url-loader?limit=4096'
                 }
             ]
         },
@@ -46,7 +48,14 @@ var config = (env, options) => [
         //see https://webpack.js.org/configuration/devtool/ for options
         devtool: options.mode === 'production' ? "source-map" : "cheap-module-eval-source-map",
 
-        plugins: options.mode === 'production' ? [] : [
+        plugins: options.mode === 'production' ? [
+            new MiniCssExtractPlugin(),
+            new HtmlWebpackPlugin({
+                filename: 'main.html',
+                hash: true,
+                template: './src/template.html'
+            })
+        ] : [
             new webpack.HotModuleReplacementPlugin()
         ]
     },
