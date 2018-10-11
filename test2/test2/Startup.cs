@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.SpaServices.Webpack;
 
 namespace test2
 {
@@ -41,7 +42,31 @@ namespace test2
 			}
 
 			app.UseHttpsRedirection();
-			app.UseMvc();
+
+			if (env.IsDevelopment())
+			{
+				//do not attempt to use hot reloading on staging or production
+				app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+				{
+					HotModuleReplacement = true,
+					EnvParam = new { NODE_ENV = "development" }
+				});
+			}
+
+			app.UseStaticFiles();
+
+			app.UseMvc(routes =>
+			{
+				routes.MapRoute(
+					name: "default",
+					template: "{controller}/{action=Index}/{id?}");
+
+				//If no server route matched, assume that this is a route handled by the client side router in the react app
+				//Note: urls that look like static resources will not be handled by this, such as urls that end in file extensions
+				routes.MapSpaFallbackRoute(
+					name: "spa-fallback",
+					defaults: new { controller = "Home", action = "Index" });
+			});
 		}
 	}
 }
