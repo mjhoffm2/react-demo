@@ -1,11 +1,9 @@
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
-using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.SpaServices.Webpack;
 
 namespace React_Demo
 {
@@ -29,11 +27,11 @@ namespace React_Demo
 		{
 			if (env.IsDevelopment())
 			{
+				app.UseExceptionHandler("/Error");
 				app.UseDeveloperExceptionPage();
 			}
 			else
 			{
-				app.UseExceptionHandler("/Error");
 				app.UseHsts();
 			}
 
@@ -63,16 +61,6 @@ namespace React_Demo
 					name: "spa-fallback",
 					defaults: new { controller = "Home", action = "Index" });
 			});
-
-			//app.UseSpa(spa =>
-			//{
-			//	spa.Options.SourcePath = "ClientApp";
-			//
-			//	if (env.IsDevelopment())
-			//	{
-			//		spa.UseReactDevelopmentServer(npmScript: "start");
-			//	}
-			//});
 		}
 	}
 }
