@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Models\Database\" />
     <Folder Include="wwwroot\dist\" />
   </ItemGroup>
 
