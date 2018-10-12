@@ -1,23 +1,27 @@
 const path = require('path');
-const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 var config = (env, options) => {
-    const isProduction = env && env.NODE_ENV && env.NODE_ENV !== 'development' ? true :
-        options && options.mode === 'production' ? true : false;
+    let isProduction;
+
+    if (env && env.NODE_ENV && env.NODE_ENV !== 'development') {
+        isProduction = true;
+    } else if (options && options.mode === 'production') {
+        isProduction = true;
+    } else {
+        isProduction = false;
+    }
+
     return {
         name: 'web',
         mode: isProduction ? 'production' : 'development',
         entry: {
-            //we configure the hot reloader as a separate entry point to the application
-            //'webpack-hot-middleware/client',
-
             client: './ClientApp/boot-client.tsx'
         },
         output: {
             path: path.resolve(__dirname, './wwwroot/dist'),
             publicPath: '/dist/',
-            filename: 'bundle.js',
+            filename: 'bundle.js'
         },
         resolve: {
             //automatically infer '.ts' and '.tsx' when importing files
@@ -29,7 +33,7 @@ var config = (env, options) => {
                     test: /\.css$/,
                     use: isProduction ?
                         [MiniCssExtractPlugin.loader, 'css-loader'] :
-                        ['style-loader', 'css-loader'],
+                        ['style-loader', 'css-loader']
                 },
                 {
                     test: /\.tsx?$/,
@@ -46,11 +50,7 @@ var config = (env, options) => {
         //see https://webpack.js.org/configuration/devtool/ for options
         devtool: isProduction ? "source-map" : "cheap-module-eval-source-map",
 
-        plugins: isProduction ? [
-            new MiniCssExtractPlugin()
-        ] : [
-                //new webpack.HotModuleReplacementPlugin()
-            ]
-    }
-}
+        plugins: isProduction ? [ new MiniCssExtractPlugin() ] : []
+    };
+};
 module.exports = config;
