@@ -19,7 +19,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="package-lock.json" />
+    <Content Remove="package.json" />
+    <Content Remove="tsconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\dist\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="package-lock.json" />
+    <None Include="package.json" />
+    <None Include="tsconfig.json" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('node_modules') ">
