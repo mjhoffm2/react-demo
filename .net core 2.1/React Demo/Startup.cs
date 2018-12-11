@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.SpaServices.Webpack;
+using React_Demo.Services;
 
 namespace React_Demo
 {
@@ -20,6 +21,9 @@ namespace React_Demo
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+			services.AddDbContext<SlackTrainingDb>();
+			services.AddScoped<ChannelManagerService>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
