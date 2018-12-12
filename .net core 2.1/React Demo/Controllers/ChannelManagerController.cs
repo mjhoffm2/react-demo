@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using React_Demo.Models.Database;
 using React_Demo.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace React_Demo.Controllers
@@ -19,16 +16,37 @@ namespace React_Demo.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> GetChannels()
+		public async Task<IActionResult> GetChannels([FromQuery] string search = "", [FromQuery] int limit = 20, [FromQuery] int offset = 0)
 		{
-			var channels = await channelService.GetChannels();
+			var channels = await channelService.GetChannels(search, limit, offset);
 			return Json(channels);
+		}
+
+		[HttpGet("byId")]
+		public async Task<IActionResult> GetChannel([FromQuery] long channelId)
+		{
+			var channel = await channelService.GetChannel(channelId);
+			return Json(channel);
 		}
 
 		[HttpPost]
 		public async Task<IActionResult> AddChannel([FromBody] Channel channel)
 		{
-			await channelService.AddChannel(channel.DisplayName, channel.Description, channel.IsPublic);
+			var createdChannel = await channelService.AddChannel(channel);
+			return Json(createdChannel);
+		}
+
+		[HttpPatch]
+		public async Task<IActionResult> UpdateChannel([FromBody] Channel channel)
+		{
+			await channelService.UpdateChannel(channel);
+			return Ok();
+		}
+
+		[HttpDelete]
+		public async Task<IActionResult> DeleteChannel([FromBody] Channel channel)
+		{
+			await channelService.DeleteChannel(channel);
 			return Ok();
 		}
 	}

@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using React_Demo.Services;
+using React_Demo.Util;
 
 namespace React_Demo
 {
@@ -40,6 +41,9 @@ namespace React_Demo
 			}
 
 			app.UseHttpsRedirection();
+
+			//This middleware turns certain uncaught exceptions into status codes/error responses for the api
+			app.UseExceptionStatusCodes();
 
 			if (env.IsDevelopment())
 			{

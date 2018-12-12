@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using React_Demo.Models.Database;
+using React_Demo.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,24 +17,97 @@ namespace React_Demo.Services
 			this.context = context;
 		}
 
-		public async Task<List<Channel>> GetChannels()
+		public async Task<List<Channel>> GetChannels(string search, int limit, int offset)
 		{
-			return await context.Channel.ToListAsync();
+			return await context.Channel
+				.Where(channel => channel.IsPublic)
+				.Where(channel => !channel.IsSoftDeleted)
+				.Where(channel => search == "" || channel.DisplayName.StartsWith(search) || channel.Description.Contains(search))
+				.Skip(offset)
+				.Take(limit)
+				.ToListAsync();
 		}
 
-		public async Task AddChannel(string displayName, string description, bool isPublic)
+		public async Task<Channel> GetChannel(long channelId)
 		{
-			if(String.IsNullOrWhiteSpace(displayName))
+			Channel channel = await context.Channel.FindAsync(channelId);
+
+			if (channel == null)
 			{
-				throw new ArgumentException("Channel display name cannot be empty", nameof(displayName));
+				throw new NotFoundException("No channel exists with the id: " + channelId);
+			}
+			return channel;
+		}
+
+		public async Task<Channel> AddChannel(Channel channel)
+		{
+			string displayName = channel.DisplayName;
+			string description = channel.Description;
+			bool isPublic = channel.IsPublic;
+
+			if (String.IsNullOrWhiteSpace(displayName))
+			{
+				throw new BadRequestException("Channel display name cannot be empty");
 			}
 
-			context.Channel.Add(new Channel()
+			Channel channelToCreate = new Channel()
 			{
 				DisplayName = displayName,
 				Description = description,
 				IsPublic = isPublic
-			});
+			};
+
+			context.Channel.Add(channelToCreate);
+
+			await context.SaveChangesAsync();
+
+			return channelToCreate;
+		}
+
+		public async Task<Channel> UpdateChannel(Channel channel)
+		{
+			long channelId = channel.ChannelId;
+			string displayName = channel.DisplayName;
+			string description = channel.Description;
+			bool isPublic= channel.IsPublic;
+
+			//the channel provided as an argument is simply a deserialized object from the user
+			//we need to obtain the tracked entity from EF Core
+			Channel oldChannel = await context.Channel.FindAsync(channelId);
+
+			if (oldChannel == null)
+			{
+				throw new NotFoundException("No channel exists with the id: " + channelId);
+			}
+
+			if(String.IsNullOrWhiteSpace(displayName))
+			{
+				throw new BadRequestException("Channel display name cannot be empty");
+			}
+
+			oldChannel.DisplayName = displayName;
+			oldChannel.Description = description;
+			oldChannel.IsPublic = isPublic;
+
+			await context.SaveChangesAsync();
+
+			return oldChannel;
+		}
+
+		public async Task DeleteChannel(Channel channel)
+		{
+			long channelId = channel.ChannelId;
+
+			//the channel provided as an argument is simply a deserialized object from the user
+			//we need to obtain the tracked entity from EF Core
+			Channel oldChannel = await context.Channel.FindAsync(channelId);
+
+			if (oldChannel == null)
+			{
+				throw new NotFoundException("No channel exists with the id: " + channelId);
+			}
+
+			context.Channel.Remove(oldChannel);
 
 			await context.SaveChangesAsync();
 		}
