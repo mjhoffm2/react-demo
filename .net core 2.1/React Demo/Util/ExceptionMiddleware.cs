@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using React_Demo.Models.API;
 using System;
 using System.Net;
 using System.Threading.Tasks;
@@ -49,7 +50,7 @@ namespace React_Demo.Util
 					context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 				}
 
-				Models.API.ApiException errObj = new Models.API.ApiException()
+				ApiExceptionResponse errObj = new ApiExceptionResponse()
 				{
 					Type = "ApiException",
 					Message = e.Message

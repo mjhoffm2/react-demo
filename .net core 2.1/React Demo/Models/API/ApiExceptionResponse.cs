@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace React_Demo.Models.API
 {
-	public class ApiException
+	public class ApiExceptionResponse
 	{
 		public string Type { get; set; }
 		public string Message { get; set; }
