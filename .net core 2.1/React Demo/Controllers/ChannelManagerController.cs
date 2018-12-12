@@ -22,8 +22,8 @@ namespace React_Demo.Controllers
 			return Json(channels);
 		}
 
-		[HttpGet("byId")]
-		public async Task<IActionResult> GetChannel([FromQuery] long channelId)
+		[HttpGet("{channelId:long}")]
+		public async Task<IActionResult> GetChannel(long channelId)
 		{
 			var channel = await channelService.GetChannel(channelId);
 			return Json(channel);
@@ -43,10 +43,10 @@ namespace React_Demo.Controllers
 			return Ok();
 		}
 
-		[HttpDelete]
-		public async Task<IActionResult> DeleteChannel([FromBody] Channel channel)
+		[HttpDelete("{channelId:long}")]
+		public async Task<IActionResult> DeleteChannel(long channelId)
 		{
-			await channelService.DeleteChannel(channel);
+			await channelService.DeleteChannel(channelId);
 			return Ok();
 		}
 	}

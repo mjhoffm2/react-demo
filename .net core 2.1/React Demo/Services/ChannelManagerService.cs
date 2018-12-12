@@ -94,17 +94,18 @@ namespace React_Demo.Services
 			return oldChannel;
 		}
 
-		public async Task DeleteChannel(Channel channel)
+		public async Task DeleteChannel(long channelId)
 		{
-			long channelId = channel.ChannelId;
-
-			//the channel provided as an argument is simply a deserialized object from the user
-			//we need to obtain the tracked entity from EF Core
 			Channel oldChannel = await context.Channel.FindAsync(channelId);
 
 			if (oldChannel == null)
 			{
 				throw new NotFoundException("No channel exists with the id: " + channelId);
+			}
+
+			if (oldChannel.IsGeneral)
+			{
+				throw new UnauthorizedAccessException("You do not have permission to delete this channel");
 			}
 
 			context.Channel.Remove(oldChannel);
