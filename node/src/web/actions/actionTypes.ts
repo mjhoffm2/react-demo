@@ -6,8 +6,7 @@ export enum ActionTypes {
     LOAD_CHANNELS = "LOAD_CHANNELS"
 }
 
-export type ReducerAction = loadUsersAction | loadChannelsAction;
-export type Action = RouterAction | ReducerAction;
+export type Action = RouterAction | loadUsersAction | loadChannelsAction;
 
 export interface loadUsersAction {
     type: ActionTypes.LOAD_USERS;
