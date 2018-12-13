@@ -5,10 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "node_modules/.bin/webpack --mode=development",
-    "build:prod": "node_modules/.bin/webpack --mode=production",
-    "host": "node ./build/main.js --mode=development",
-    "host:prod": "node ./build/main.js --mode=production",
-    "dev": "node_modules/.bin/webpack --mode=development --config-name=server & node ./build/main.js --mode=development"
+    "build:prod": "node_modules/.bin/webpack --mode=production"
   },
   "keywords": [],
   "author": "",
@@ -25,7 +22,7 @@
     "aspnet-webpack": "^3.0.0",
     "awesome-typescript-loader": "^5.2.1",
     "bootstrap": "^3.3.7",
-    "connected-react-router": "^6.0.0",
+    "connected-react-router": "^5.0.1",
     "css-loader": "^1.0.0",
     "es6-promise": "^4.2.5",
     "file-loader": "^2.0.0",
@@ -34,7 +31,7 @@
     "react-bootstrap": "^0.32.4",
     "react-dom": "^16.5.0",
     "react-hot-loader": "^4.6.0",
-    "react-redux": "^6.0.0",
+    "react-redux": "^5.1.1",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.0",
