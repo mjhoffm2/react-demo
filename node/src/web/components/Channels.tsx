@@ -14,9 +14,13 @@ interface connectedDispatch {
     reloadChannels: () => Promise<void>;
 }
 
-const mapStateToProps = (state: defs.State): connectedState => ({
-    channels: state.channels
-});
+const mapStateToProps = (state: defs.State): connectedState => {
+    console.log("running mapStateToProps");
+
+    return ({
+        channels: state.channels
+    });
+};
 
 const tempChannels: defs.Channel[] = [{
     channelId: 1,
@@ -48,8 +52,11 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>): connectedDispatch => ({
     reloadChannels: async () => {
         //TODO: load data from server
 
+        console.log("dispatching load channels action");
+
         dispatch({
-            type: ActionTypes.LOAD_CHANNELS,
+            //@ts-ignore
+            type: "LOAD_CHANNELS",
             channels: tempChannels
         });
     }
@@ -61,6 +68,7 @@ class ChannelListComponent extends React.Component<fullParams> {
 
     componentDidMount() {
         this.props.reloadChannels();
+        setTimeout(() => this.forceUpdate(), 500);
     }
 
     render() {
