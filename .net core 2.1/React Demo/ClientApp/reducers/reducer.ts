@@ -1,10 +1,12 @@
 import * as defs from '../definitions/definitions';
-import {ActionTypes, ReducerAction} from "../actions/actionTypes";
+import {ActionTypes, Action} from "../actions/actionTypes";
 import {combineReducers, Reducer} from "redux";
+import {connectRouter} from 'connected-react-router';
+import {History} from "history";
 
 export const initialUserState: defs.State['users'] = null;
 
-export const userReducer: Reducer<defs.State['users'], ReducerAction> = (state = initialUserState, action) => {
+export const userReducer: Reducer<defs.State['users'], Action> = (state = initialUserState, action) => {
     switch(action.type) {
         case ActionTypes.LOAD_USERS: {
             return action.users;
@@ -24,10 +26,8 @@ export const channelReducer: Reducer<defs.State['channels']> = (state = initialC
     return state;
 };
 
-type stateExceptRouter = defs.RemoveKeys<defs.State, 'router'>
-
-//our root reducer ignores the 'router' state
-export const rootReducer = combineReducers<stateExceptRouter, ReducerAction>({
+export const createRootReducer = (history: History) => combineReducers<defs.State>({
     users: userReducer,
-    channels: channelReducer
-}) as Reducer<stateExceptRouter>;
+    channels: channelReducer,
+    router: connectRouter(history)
+});
