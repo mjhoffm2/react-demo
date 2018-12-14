@@ -29,7 +29,7 @@
     "mini-css-extract-plugin": "^0.4.4",
     "react": "^16.6.3",
     "react-bootstrap": "^0.32.4",
-    "react-dom": "^16.5.0",
+    "react-dom": "^16.6.3",
     "react-hot-loader": "^4.6.0",
     "react-redux": "^5.1.1",
     "react-router": "^4.3.1",
