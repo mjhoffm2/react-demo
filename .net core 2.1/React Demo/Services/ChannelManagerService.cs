@@ -105,7 +105,7 @@ namespace React_Demo.Services
 
 			if (oldChannel.IsGeneral)
 			{
-				throw new UnauthorizedAccessException("You do not have permission to delete this channel");
+				throw new UnauthorizedException("You do not have permission to delete this channel");
 			}
 
 			context.Channel.Remove(oldChannel);
